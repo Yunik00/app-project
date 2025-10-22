@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "ecaa5e36489096b5",
+        "id": "0e6848faf53706ee",
         "type": "tabs",
         "children": [
           {
-            "id": "75e3bc6a02ad5585",
+            "id": "498bfa107c53353b",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -49,7 +49,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#WIP",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -162,6 +162,11 @@
       "bases:Create new base": false
     }
   },
-  "active": "75e3bc6a02ad5585",
-  "lastOpenFiles": []
+  "active": "8bc560a55e05782b",
+  "lastOpenFiles": [
+    "2025-10-21.md",
+    "Project Plan.md",
+    "Home.md",
+    "Untitled.canvas"
+  ]
 }
