@@ -20,13 +20,16 @@ Decouples the different layers and helps to do isolated testing of each componen
   It organizes the structure of an application into three distinct layers: model, view, and presenter. This pattern is particularly appreciated for its benefits in the separation of responsibilities
   - **View**: The view layer is exclusively responsible for rendering objects. It is important that the view does not perform any other function beyond showing, rendering and hiding elements
   - **Presenter**: The presenter acts as an intermediary between the view and the model. Its main function is to manage how data is presented in view
-  - **Model**: The model, also called an interactor, is responsible for all communication with the database and HTTP connections ![[MVP-diagram.png]]
+  - **Model**: The model, also called an interactor, is responsible for all communication with the database and HTTP connections 
+  ![[MVP-diagram.png]]
+
 - MVVM (Model - View - ViewModel)
   MVVM is composed of three main layers:
   * **View**: In charge of the visual representation, that is, what the user sees and interacts with.
   * **ViewModel**: This layer acts as an intermediary between the view and the model; manages presentation logic and manages data flow.
   * **Model**: Contains the data and business logic of the application.
-    ![[MVVM - diagram.png]]
+  ![[MVVM - diagram.png]]
+
 ##### How is MVVM different from MVP?
 The main difference lies in the communication between the View and the knowledge of the presentation logic:
 - MVP (Model-View-Presenter): Use contracts for communication, making the View and Presenter more coupled.
