@@ -11,10 +11,14 @@
             "id": "498bfa107c53353b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Design Patterns.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Design Patterns"
             }
           }
         ]
@@ -162,11 +166,17 @@
       "bases:Create new base": false
     }
   },
-  "active": "8bc560a55e05782b",
+  "active": "498bfa107c53353b",
   "lastOpenFiles": [
-    "2025-10-21.md",
-    "Project Plan.md",
+    "src/MVVM - diagram.png",
+    "src/MVP-diagram.png",
+    "Design Patterns.md",
     "Home.md",
+    "src/android-stack_2x.png",
+    "src",
+    "Project Plan.md",
+    "android-stack_2x.png",
+    "2025-10-21.md",
     "Untitled.canvas"
   ]
 }

@@ -21,3 +21,5 @@ What Should Project Documentation Contain?
 
 Extra stuff I'd like
 1. Binnacle of development (successes and fails)
+2. Knowledge / Investigations
+   - [[Design Patterns]]
