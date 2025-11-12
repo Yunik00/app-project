@@ -34,3 +34,21 @@ Decouples the different layers and helps to do isolated testing of each componen
 The main difference lies in the communication between the View and the knowledge of the presentation logic:
 - MVP (Model-View-Presenter): Use contracts for communication, making the View and Presenter more coupled.
 - MVVM (Model-View-ViewModel): Communication is done through observers and subscriptions. The View automatically updates when there are changes to the ViewModel, eliminating the need for contracts and reducing the number of mediator classes.
+### Design Pattern
+##### Creational patterns
+Delegates the responsibility of creating and instancing the clases we'll need. It's main purpose is encapsulate the classes' knowledge and hide how they are created.
+- [[Singleton]]
+- [[Builder]]
+- [[Factory]]
+##### Estructural Patterns
+Focuses on how classes and objects are composed to form larger structures.
+- Adapter
+- Proxy
+- Facade
+##### Behavior patterns
+It tells us what the communication between objects is like and how we can decouple and delegate responsibilities.
+- Observer
+- Command
+
+
+
