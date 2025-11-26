@@ -1,18 +1,26 @@
 import numpy as np
 
-class fullyconnected:
+class FullyConnected:
 
     def __init__(self, outputs: int):
-        
         self.outputs = outputs
         self.weights = None
+        self.bias = None
 
     def ForwardPass(self, input):
-        h, w = input.shape
+
+        # Flatten everything except batch
+        x = input.flatten()
 
         if self.weights is None:
-            rng = np.random.default_rng() # We create a rng generator to initialize the values of our filters
-            self.weights = rng.standard_normal(size = (self.outputs, h))
+            rng = np.random.default_rng()
+            self.weights = rng.standard_normal(
+                size=(self.outputs, x.size)
+            )
+            self.bias = np.zeros(self.outputs)
 
-        Output = self.weights @ input
-        return Output
+        output = self.weights @ x + self.bias
+        return output
+    
+    def BackProp(self, ):
+        pass

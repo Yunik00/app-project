@@ -5,66 +5,62 @@ import numpy as np
 class Maxpool:
 
     def __init__(self, size: int = 2, stride: int = 2):
-
-        # Define size of the maxpool filter size should be a power of 2 and stride the same
         self.size = size
         self.stride = stride
 
-        self.filter = np.zeros((self.size, self.size))
-
     def CreateRegions(self, input):
-        # Get dimentions of the input array
-        h, w, d = input.shape
+        h, w, _ = input.shape
 
-        # Create n x n regions for pooling spacin them by the stride size
-        for i in range(int(h / self.stride)):
-            for j in range(int(w / self.stride)):
-                region  = input[self.stride * i: self.stride * i + self.size, self.stride * j: self.stride * j + self.size]
+        for i in range(0, h - self.size + 1, self.stride):
+            for j in range(0, w - self.size + 1, self.stride):
 
-                yield region, i, j # Return the region and its coordinate
+                region = input[i:i+self.size, j:j+self.size, :]
+                yield region, i // self.stride, j // self.stride
 
     def ForwardPass(self, input):
-        # Get dimentions of the input array
-        h, w, d = input.shape
+        h, w, c = input.shape
 
-        # Initialize output array with the size (h / stride, w / stride )
-        output = np.zeros((int(h / self.stride), int(w / self.stride)))
+        out_h = (h - self.size) // self.stride + 1
+        out_w = (w - self.size) // self.stride + 1
 
-        # Iterate over the needed regions and apply the convolution
+        output = np.zeros((out_h, out_w, c))
+
         for region, i, j in self.CreateRegions(input):
-            output[i, j] = np.max(region)
+            output[i, j] = np.max(region, axis=(0, 1))
+
         return output
+    
+    def BackProp(self, ):
+        pass
     
     # Create the avgpool class which takes the max value of a region of size (size x size) and outputs a single value
 class Avgpool:
 
     def __init__(self, size: int = 2, stride: int = 2):
-
-        # Define size of the avgpool filter size should be a power of 2 and stride the same
         self.size = size
         self.stride = stride
 
-        self.filter = np.zeros((self.size, self.size))
-
     def CreateRegions(self, input):
-        # Get dimentions of the input array
-        h, w, d = input.shape
+        h, w, _ = input.shape
 
-        # Create n x n regions for pooling spacin them by the stride size
-        for i in range(int(h / self.stride)):
-            for j in range(int(w / self.stride)):
-                region  = input[self.stride * i: self.stride * i + self.size, self.stride * j: self.stride * j + self.size]
+        for i in range(0, h - self.size + 1, self.stride):
+            for j in range(0, w - self.size + 1, self.stride):
 
-                yield region, i, j # Return the region and its coordinate
+                region = input[i:i+self.size, j:j+self.size, :]
+                yield region, i // self.stride, j // self.stride
 
     def ForwardPass(self, input):
-        # Get dimentions of the input array
-        h, w, d = input.shape
+        h, w, c = input.shape
 
-        # Initialize output array with the size (h / stride, w / stride )
-        output = np.zeros((int(h / self.stride), int(w / self.stride)))
+        out_h = (h - self.size) // self.stride + 1
+        out_w = (w - self.size) // self.stride + 1
 
-        # Iterate over the needed regions and apply the convolution
+        output = np.zeros((out_h, out_w, c))
+
         for region, i, j in self.CreateRegions(input):
-            output[i, j] = np.sum(region) / (h*w)
+            output[i, j] = np.mean(region, axis=(0, 1))
+
         return output
+    
+    def BackProp(self, ):
+        pass

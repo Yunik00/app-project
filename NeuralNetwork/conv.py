@@ -4,36 +4,46 @@ import numpy as np
 class convLayer:
 
     def __init__(self, dim: int, num_filters: int):
-        # Initialize properties of the class
         self.dim = dim
         self.num_filters = num_filters
-        self.padding = int(np.ceil((self.dim - 1) / 2))
-
-                
-        # Initialize the conv_layer filters as arrays of dimention (dim, dim, conv_layer)
-        rng = np.random.default_rng() # We create a rng generator to initialize the values of our filters
-        self.filters = rng.standard_normal(size = (self.num_filters, self.dim, self.dim)) # We use the rng gen to fill the array with base values
-            
+        self.padding = 0
+        self.filters = None   # lazy init
+        self.bias = None
 
     def CreateRegions(self, input):
-        # Get dimentions of the image
-        h, w = input.shape
+        h, w, _ = input.shape
 
-        # Create the nxn regions to do the convolution
-        for i in range(h - 2*self.padding):
-            for j in range(w - 2*self.padding):
+        for i in range(h - self.dim + 1):
+            for j in range(w - self.dim + 1):
+                region = input[i:(i + self.dim), j:(j + self.dim), :]
+                yield region, i, j
 
-                region = input[i : (i + self.dim), j : (j + self.dim)] # We extract the region to convolve 
-                yield region, i, j # Return the region and its top left coordinate in the total array
-        
     def ForwardPass(self, input):
-        # Do the convolution and apply an activation function
-        h, w = input.shape
 
-        # Initialize the output array with the correct sizes
-        output = np.zeros((h - self.dim + 1, w - self.dim + 1, self.num_filters)) 
+        # Ensure input is 3D (H,W,C)
+        if input.ndim == 2:
+            input = input[:, :, None]
 
-        # Iterate over the needed regions and apply the convolution
+        h, w, c = input.shape
+
+        # Lazy filter initialization
+        if self.filters is None:
+            rng = np.random.default_rng()
+            fan_in = self.dim * self.dim * c
+            scale = np.sqrt(2 / fan_in) # Scale factor for He initialization
+
+            self.filters = rng.standard_normal(
+                size=(self.num_filters, self.dim, self.dim, c)
+            ) * scale
+            self.bias = np.zeros(self.num_filters)
+
+        output = np.zeros((h - self.dim + 1, w - self.dim + 1, self.num_filters))
+
         for region, i, j in self.CreateRegions(input):
-            output[i, j] = np.sum(region * self.filters, axis = (1,2))
+            # sum over (dim, dim, channels)
+            output[i, j] = np.sum(region * self.filters, axis=(1, 2, 3)) + self.bias
+
         return output
+    
+    def BackProp(self, ):
+        pass
